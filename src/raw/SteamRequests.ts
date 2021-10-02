@@ -1,4 +1,5 @@
 import axios from 'axios';
+import PlayerFriendListResponse from './Structs/Responses/PlayerFriendListResponse';
 import UserLevelResponse from './Structs/Responses/UserLevelResponse';
 import UserOwnedGamesResponse from './Structs/Responses/UserOwnedGamesResponse';
 import UserSummaryResponse from './Structs/Responses/UserSummaryResponse';
@@ -102,5 +103,13 @@ export class SteamRequests {
       steamid,
     })) as UserLevelResponse;
     return response.response.player_level;
+  }
+
+  async getPlayerFriendList(steamid: string) {
+    // TODO handling private friend lists
+    const response = (await this.get('/ISteamUser/GetFriendList/v1', {
+      steamid,
+    })) as PlayerFriendListResponse;
+    return response.friendslist.friends;
   }
 }
