@@ -9,8 +9,8 @@ import PlayerBanResponse from './Structs/Responses/PlayerBanResponse';
 import PlayerBan from './Structs/PlayerBan';
 import PlayerGroupListResponse from './Structs/Responses/PlayerGroupListResponse';
 import AppListResponse from './Structs/Responses/AppListResponse';
-import GetNumberOfCurrentPlayersResponse from './Structs/Responses/GetNumberOfCurrentPlayersResponse';
-import GetPlayerAchievementsResponse from './Structs/Responses/GetPlayerAchievementsResponse';
+import NumberOfCurrentPlayersResponse from './Structs/Responses/NumberOfCurrentPlayersResponse';
+import PlayerAchievementsResponse from './Structs/Responses/PlayerAchievementsResponse';
 import SchemaForGameResponse from './Structs/Responses/SchemaForGameResponse';
 
 const BASE_URL = 'https://api.steampowered.com';
@@ -164,7 +164,7 @@ export class SteamRequests {
         steamid,
         appid,
       }
-    )) as GetPlayerAchievementsResponse;
+    )) as PlayerAchievementsResponse;
 
     return response.playerstats.success
       ? response.playerstats.achievements
@@ -197,7 +197,7 @@ export class SteamRequests {
     const response = (await this.get(
       '/ISteamUserStats/GetNumberOfCurrentPlayers/v1',
       { appid }
-    )) as GetNumberOfCurrentPlayersResponse;
+    )) as NumberOfCurrentPlayersResponse;
 
     return response.response.result === 1
       ? response.response.player_count!
