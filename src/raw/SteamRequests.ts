@@ -1,4 +1,5 @@
 import axios from 'axios';
+import UserOwnedGamesResponse from './Structs/Responses/UserOwnedGamesResponse';
 import UserSummaryResponse from './Structs/Responses/UserSummaryResponse';
 import UserSummary from './Structs/UserSummary';
 
@@ -59,5 +60,22 @@ export class SteamRequests {
     return responses.reduce((prev: UserSummary[], current) => {
       return prev.concat(current.response.players);
     }, []);
+  }
+
+  async getOwnedGames(
+    steamid: string,
+    includeAppInfo = false,
+    includePlayedFreeGames = false
+  ) {
+    const response = (await this.get('/IPlayerService/GetOwnedGames/v1', {
+      steamid,
+      include_appinfo: Number(includeAppInfo),
+      include_played_free_games: Number(includePlayedFreeGames),
+    })) as UserOwnedGamesResponse;
+
+    return {
+      count: response.response.game_count || 0,
+      games: response.response.games || [],
+    };
   }
 }
