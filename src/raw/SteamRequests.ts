@@ -1,9 +1,9 @@
 import axios from 'axios';
 import PlayerFriendListResponse from './Structs/Responses/PlayerFriendListResponse';
-import UserLevelResponse from './Structs/Responses/UserLevelResponse';
-import UserOwnedGamesResponse from './Structs/Responses/UserOwnedGamesResponse';
-import UserSummaryResponse from './Structs/Responses/UserSummaryResponse';
-import UserSummary from './Structs/UserSummary';
+import PlayerLevelResponse from './Structs/Responses/PlayerLevelResponse';
+import PlayerOwnedGamesResponse from './Structs/Responses/PlayerOwnedGamesResponse';
+import PlayerSummaryResponse from './Structs/Responses/PlayerSummaryResponse';
+import PlayerSummary from './Structs/PlayerSummary';
 
 const BASE_URL = 'https://api.steampowered.com';
 
@@ -54,12 +54,12 @@ export class SteamRequests {
       list =>
         this.get('/ISteamUser/GetPlayerSummaries/v0002', {
           steamids: list.join(','),
-        }) as Promise<UserSummaryResponse>
+        }) as Promise<PlayerSummaryResponse>
     );
 
     const responses = await Promise.all(promises);
 
-    return responses.reduce((prev: UserSummary[], current) => {
+    return responses.reduce((prev: PlayerSummary[], current) => {
       return prev.concat(current.response.players);
     }, []);
   }
@@ -73,7 +73,7 @@ export class SteamRequests {
       steamid,
       include_appinfo: Number(includeAppInfo),
       include_played_free_games: Number(includePlayedFreeGames),
-    })) as UserOwnedGamesResponse;
+    })) as PlayerOwnedGamesResponse;
 
     return {
       count: response.response.game_count || 0,
@@ -93,7 +93,7 @@ export class SteamRequests {
         include_appinfo: Number(includeAppInfo),
         include_played_free_games: Number(includePlayedFreeGames),
       }
-    )) as UserOwnedGamesResponse;
+    )) as PlayerOwnedGamesResponse;
 
     return response.response;
   }
@@ -101,7 +101,7 @@ export class SteamRequests {
   async getPlayerSteamLevel(steamid: string) {
     const response = (await this.get('/IPlayerService/GetSteamLevel/v1', {
       steamid,
-    })) as UserLevelResponse;
+    })) as PlayerLevelResponse;
     return response.response.player_level;
   }
 

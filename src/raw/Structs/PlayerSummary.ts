@@ -1,4 +1,4 @@
-export default interface UserSummary {
+export default interface PlayerSummary {
   steamid: string;
   communityvisibilitystate: number;
   personastate: number;
