@@ -62,10 +62,10 @@ export class SteamRequests {
     }, []);
   }
 
-  async getOwnedGames(
+  async getPlayerOwnedGames(
     steamid: string,
     includeAppInfo = false,
-    includePlayedFreeGames = false
+    includePlayedFreeGames = true
   ) {
     const response = (await this.get('/IPlayerService/GetOwnedGames/v1', {
       steamid,
@@ -77,5 +77,22 @@ export class SteamRequests {
       count: response.response.game_count || 0,
       games: response.response.games || [],
     };
+  }
+
+  async getPlayerRecentGames(
+    steamid: string,
+    includeAppInfo = false,
+    includePlayedFreeGames = false
+  ) {
+    const response = (await this.get(
+      '/IPlayerService/GetRecentlyPlayedGames/v1',
+      {
+        steamid,
+        include_appinfo: Number(includeAppInfo),
+        include_played_free_games: Number(includePlayedFreeGames),
+      }
+    )) as UserOwnedGamesResponse;
+
+    return response.response;
   }
 }
