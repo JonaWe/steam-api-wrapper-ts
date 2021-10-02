@@ -52,7 +52,7 @@ export class SteamRequests {
     const response = (await this.get('/ISteamUser/ResolveVanityURL/v0001', {
       vanityurl,
     })) as ResolveVanityURL;
-    return response.response.success === 1 ? response.response.steamid : null;
+    return response.response.success === 1 ? response.response.steamid! : null;
   }
 
   async getPlayerSummaries(steam64ids: string | string[]) {
