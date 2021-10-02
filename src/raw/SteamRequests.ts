@@ -5,6 +5,8 @@ import PlayerOwnedGamesResponse from './Structs/Responses/PlayerOwnedGamesRespon
 import PlayerSummaryResponse from './Structs/Responses/PlayerSummaryResponse';
 import PlayerSummary from './Structs/PlayerSummary';
 import ResolveVanityURL from './Structs/Responses/ResolveVanityURL';
+import PlayerBanResponse from './Structs/Responses/PlayerBanResponse';
+import PlayerBan from './Structs/PlayerBan';
 
 const BASE_URL = 'https://api.steampowered.com';
 
@@ -119,5 +121,26 @@ export class SteamRequests {
       steamid,
     })) as PlayerFriendListResponse;
     return response.friendslist.friends;
+  }
+
+  async getPlayerBan(steamid: string | string[]) {
+    if (typeof steamid === 'string') {
+      steamid = [steamid];
+    }
+
+    const chunkedSteamIds = this.chunkArray(steamid, 100);
+
+    const promises = chunkedSteamIds.map(
+      list =>
+        this.get('/ISteamUser/GetPlayerBans/v1', {
+          steamids: list.join(','),
+        }) as Promise<PlayerBanResponse>
+    );
+
+    const responses = await Promise.all(promises);
+
+    return responses.reduce((prev: PlayerBan[], current) => {
+      return prev.concat(current.players);
+    }, []);
   }
 }
