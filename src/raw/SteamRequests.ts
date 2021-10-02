@@ -52,9 +52,11 @@ export class SteamRequests {
     return result;
   }
 
-  async resolveVanityURL(vanityurl: string) {
+  async resolveVanityURL(vanityurl: string, url_type: number = 1) {
+    // url_type: 1 individual profile; 2 group; 3 official game group
     const response = (await this.get('/ISteamUser/ResolveVanityURL/v0001', {
       vanityurl,
+      url_type,
     })) as ResolveVanityURL;
     return response.response.success === 1 ? response.response.steamid! : null;
   }
