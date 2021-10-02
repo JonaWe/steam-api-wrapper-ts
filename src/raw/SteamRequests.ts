@@ -8,6 +8,7 @@ import ResolveVanityURL from './Structs/Responses/ResolveVanityURL';
 import PlayerBanResponse from './Structs/Responses/PlayerBanResponse';
 import PlayerBan from './Structs/PlayerBan';
 import PlayerGroupListResponse from './Structs/Responses/PlayerGroupListResponse';
+import AppListResponse from './Structs/Responses/AppListResponse';
 
 const BASE_URL = 'https://api.steampowered.com';
 
@@ -151,5 +152,13 @@ export class SteamRequests {
     })) as PlayerGroupListResponse;
 
     return response.response.success ? response.response.groups : [];
+  }
+
+  async getAppList() {
+    const response = (await this.get(
+      '/ISteamApps/GetAppList/v2'
+    )) as AppListResponse;
+
+    return response.applist.apps;
   }
 }
