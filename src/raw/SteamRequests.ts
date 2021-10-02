@@ -1,4 +1,5 @@
 import axios from 'axios';
+import UserLevelResponse from './Structs/Responses/UserLevelResponse';
 import UserOwnedGamesResponse from './Structs/Responses/UserOwnedGamesResponse';
 import UserSummaryResponse from './Structs/Responses/UserSummaryResponse';
 import UserSummary from './Structs/UserSummary';
@@ -94,5 +95,12 @@ export class SteamRequests {
     )) as UserOwnedGamesResponse;
 
     return response.response;
+  }
+
+  async getPlayerSteamLevel(steamid: string) {
+    const response = (await this.get('/IPlayerService/GetSteamLevel/v1', {
+      steamid,
+    })) as UserLevelResponse;
+    return response.response.player_level;
   }
 }
