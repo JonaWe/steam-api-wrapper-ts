@@ -13,6 +13,7 @@ import NumberOfCurrentPlayersResponse from './Structs/Responses/NumberOfCurrentP
 import PlayerAchievementsResponse from './Structs/Responses/PlayerAchievementsResponse';
 import SchemaForGameResponse from './Structs/Responses/SchemaForGameResponse';
 import PlayerBadgesResponse from './Structs/Responses/PlayerBadgesResponse';
+import PlayerStatsForGameResponse from './Structs/Responses/PlayerStatsForGameResponse';
 
 const BASE_URL = 'https://api.steampowered.com';
 
@@ -179,6 +180,18 @@ export class SteamRequests {
       steamid,
     })) as PlayerBadgesResponse;
     return response.response;
+  }
+
+  async getPlayerStatsForGame(steamid: string, appid: number) {
+    const response = (await this.get(
+      '/ISteamUserStats/GetUserStatsForGame/v2',
+      {
+        steamid,
+        appid,
+      }
+    )) as PlayerStatsForGameResponse;
+
+    return response.playerstats;
   }
 
   async getSchemaForGame(appid: number) {
