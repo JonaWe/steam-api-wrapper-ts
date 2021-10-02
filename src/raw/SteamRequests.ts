@@ -4,6 +4,7 @@ import PlayerLevelResponse from './Structs/Responses/PlayerLevelResponse';
 import PlayerOwnedGamesResponse from './Structs/Responses/PlayerOwnedGamesResponse';
 import PlayerSummaryResponse from './Structs/Responses/PlayerSummaryResponse';
 import PlayerSummary from './Structs/PlayerSummary';
+import ResolveVanityURL from './Structs/Responses/ResolveVanityURL';
 
 const BASE_URL = 'https://api.steampowered.com';
 
@@ -41,6 +42,13 @@ export class SteamRequests {
     for (var i = 0; i < array.length; i += chunkSize)
       result.push(array.slice(i, i + chunkSize));
     return result;
+  }
+
+  async resolveVanityURL(vanityurl: string) {
+    const response = (await this.get('/ISteamUser/ResolveVanityURL/v0001', {
+      vanityurl,
+    })) as ResolveVanityURL;
+    return response.response.success === 1 ? response.response.steamid : null;
   }
 
   async getPlayerSummaries(steam64ids: string | string[]) {
