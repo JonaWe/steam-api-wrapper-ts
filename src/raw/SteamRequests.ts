@@ -7,6 +7,7 @@ import PlayerSummary from './Structs/PlayerSummary';
 import ResolveVanityURL from './Structs/Responses/ResolveVanityURL';
 import PlayerBanResponse from './Structs/Responses/PlayerBanResponse';
 import PlayerBan from './Structs/PlayerBan';
+import PlayerGroupListResponse from './Structs/Responses/PlayerGroupListResponse';
 
 const BASE_URL = 'https://api.steampowered.com';
 
@@ -142,5 +143,13 @@ export class SteamRequests {
     return responses.reduce((prev: PlayerBan[], current) => {
       return prev.concat(current.players);
     }, []);
+  }
+
+  async getPlayerGroupList(steamid: string) {
+    const response = (await this.get('/ISteamUser/GetUserGroupList/v1', {
+      steamid,
+    })) as PlayerGroupListResponse;
+
+    return response.response.success ? response.response.groups : [];
   }
 }
