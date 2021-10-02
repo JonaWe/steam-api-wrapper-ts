@@ -10,6 +10,7 @@ import PlayerBan from './Structs/PlayerBan';
 import PlayerGroupListResponse from './Structs/Responses/PlayerGroupListResponse';
 import AppListResponse from './Structs/Responses/AppListResponse';
 import GetNumberOfCurrentPlayersResponse from './Structs/Responses/GetNumberOfCurrentPlayersResponse';
+import GetPlayerAchievementsResponse from './Structs/Responses/GetPlayerAchievementsResponse';
 
 const BASE_URL = 'https://api.steampowered.com';
 
@@ -153,6 +154,20 @@ export class SteamRequests {
     })) as PlayerGroupListResponse;
 
     return response.response.success ? response.response.groups : [];
+  }
+
+  async getPlayerAchievements(steamid: string, appid: number) {
+    const response = (await this.get(
+      '/ISteamUserStats/GetPlayerAchievements/v1',
+      {
+        steamid,
+        appid,
+      }
+    )) as GetPlayerAchievementsResponse;
+
+    return response.playerstats.success
+      ? response.playerstats.achievements
+      : null;
   }
 
   async getAppList() {
