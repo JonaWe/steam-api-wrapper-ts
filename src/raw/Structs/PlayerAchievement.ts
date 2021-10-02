@@ -1,4 +1,4 @@
-export default interface Achievement {
+export default interface PlayerAchievement {
   apiname: string;
   achieved: number;
   unlocktime: number;

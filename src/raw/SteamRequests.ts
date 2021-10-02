@@ -11,6 +11,7 @@ import PlayerGroupListResponse from './Structs/Responses/PlayerGroupListResponse
 import AppListResponse from './Structs/Responses/AppListResponse';
 import GetNumberOfCurrentPlayersResponse from './Structs/Responses/GetNumberOfCurrentPlayersResponse';
 import GetPlayerAchievementsResponse from './Structs/Responses/GetPlayerAchievementsResponse';
+import SchemaForGameResponse from './Structs/Responses/SchemaForGameResponse';
 
 const BASE_URL = 'https://api.steampowered.com';
 
@@ -168,6 +169,19 @@ export class SteamRequests {
     return response.playerstats.success
       ? response.playerstats.achievements
       : null;
+  }
+
+  async getSchemaForGame(appid: number) {
+    // TODO add language option
+    const response = (await this.get('/ISteamUserStats/GetSchemaForGame/v2', {
+      appid,
+    })) as SchemaForGameResponse;
+    return {
+      stats: response.game.availableGameStats.stats,
+      achievements: response.game.availableGameStats.achievements,
+      name: response.game.gameName,
+      version: response.game.gameVersion,
+    };
   }
 
   async getAppList() {

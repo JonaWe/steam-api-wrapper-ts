@@ -1,10 +1,10 @@
-import Achievement from '../Achievement';
+import PlayerAchievement from '../PlayerAchievement';
 
 export default interface GetPlayerAchievementsResponse {
   playerstats: {
     steamid: string;
     gameName: string;
-    achievements: Achievement[];
+    achievements: PlayerAchievement[];
     success: boolean;
   };
 }
