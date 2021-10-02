@@ -9,6 +9,7 @@ import PlayerBanResponse from './Structs/Responses/PlayerBanResponse';
 import PlayerBan from './Structs/PlayerBan';
 import PlayerGroupListResponse from './Structs/Responses/PlayerGroupListResponse';
 import AppListResponse from './Structs/Responses/AppListResponse';
+import GetNumberOfCurrentPlayersResponse from './Structs/Responses/GetNumberOfCurrentPlayersResponse';
 
 const BASE_URL = 'https://api.steampowered.com';
 
@@ -160,5 +161,17 @@ export class SteamRequests {
     )) as AppListResponse;
 
     return response.applist.apps;
+  }
+
+  async getNumberOfCurrentPlayers(appid: number) {
+    // TODO throws error when appid is not available
+    const response = (await this.get(
+      '/ISteamUserStats/GetNumberOfCurrentPlayers/v1',
+      { appid }
+    )) as GetNumberOfCurrentPlayersResponse;
+
+    return response.response.result === 1
+      ? response.response.player_count!
+      : null;
   }
 }
