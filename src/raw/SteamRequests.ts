@@ -1,5 +1,6 @@
 import axios from 'axios';
 import UserSummaryResponse from './Structs/Responses/UserSummaryResponse';
+import UserSummary from './Structs/UserSummary';
 
 const BASE_URL = 'https://api.steampowered.com';
 
@@ -16,9 +17,9 @@ export class SteamRequests {
     // adds the key to the provided parameters
     params.key = this.token;
 
-    const result = await axios.get(
-      `${this.baseUrl}${path}${this.stringifyGetParams(params)}`
-    );
+    const req_URL = `${this.baseUrl}${path}${this.stringifyGetParams(params)}`;
+
+    const result = await axios.get(req_URL);
     return result.data;
   }
 
@@ -32,15 +33,31 @@ export class SteamRequests {
     );
   }
 
+  private chunkArray<Type>(array: Type[], chunkSize: number) {
+    var result = [];
+    for (var i = 0; i < array.length; i += chunkSize)
+      result.push(array.slice(i, i + chunkSize));
+    return result;
+  }
+
   async getPlayerSummaries(steam64ids: string | string[]) {
-    if (typeof steam64ids !== 'string') {
-      steam64ids = steam64ids.join(',');
+    if (typeof steam64ids === 'string') {
+      steam64ids = [steam64ids];
     }
 
-    const result = (await this.get('/ISteamUser/GetPlayerSummaries/v0002', {
-      steamids: steam64ids,
-    })) as UserSummaryResponse;
+    const chunkedSteamIds = this.chunkArray(steam64ids, 100);
 
-    return result.response.players;
+    const promises = chunkedSteamIds.map(
+      list =>
+        this.get('/ISteamUser/GetPlayerSummaries/v0002', {
+          steamids: list.join(','),
+        }) as Promise<UserSummaryResponse>
+    );
+
+    const responses = await Promise.all(promises);
+
+    return responses.reduce((prev: UserSummary[], current) => {
+      return prev.concat(current.response.players);
+    }, []);
   }
 }
