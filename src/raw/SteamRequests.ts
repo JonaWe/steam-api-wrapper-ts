@@ -12,6 +12,7 @@ import AppListResponse from './Structs/Responses/AppListResponse';
 import NumberOfCurrentPlayersResponse from './Structs/Responses/NumberOfCurrentPlayersResponse';
 import PlayerAchievementsResponse from './Structs/Responses/PlayerAchievementsResponse';
 import SchemaForGameResponse from './Structs/Responses/SchemaForGameResponse';
+import PlayerBadgesResponse from './Structs/Responses/PlayerBadgesResponse';
 
 const BASE_URL = 'https://api.steampowered.com';
 
@@ -169,6 +170,13 @@ export class SteamRequests {
     return response.playerstats.success
       ? response.playerstats.achievements
       : null;
+  }
+
+  async getPlayerBadges(steamid: string) {
+    const response = (await this.get('/IPlayerService/GetBadges/v1', {
+      steamid,
+    })) as PlayerBadgesResponse;
+    return response.response;
   }
 
   async getSchemaForGame(appid: number) {
