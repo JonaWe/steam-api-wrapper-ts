@@ -1,1 +1,1 @@
-export { SteamRequests } from './SteamRequests';
+export { Fetcher } from './Fetcher';

@@ -17,7 +17,7 @@ import PlayerStatsForGameResponse from './Structs/Responses/PlayerStatsForGameRe
 
 const BASE_URL = 'https://api.steampowered.com';
 
-export class SteamRequests {
+export class Fetcher {
   token: string;
   baseUrl: string;
 

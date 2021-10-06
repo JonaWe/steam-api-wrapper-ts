@@ -1,1 +1,1 @@
-export { SteamRequests } from './raw';
+export { Fetcher } from './raw';
