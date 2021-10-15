@@ -14,6 +14,7 @@ import PlayerAchievementsResponse from './Structs/Responses/PlayerAchievementsRe
 import SchemaForGameResponse from './Structs/Responses/SchemaForGameResponse';
 import PlayerBadgesResponse from './Structs/Responses/PlayerBadgesResponse';
 import PlayerStatsForGameResponse from './Structs/Responses/PlayerStatsForGameResponse';
+import AppDetails from './Structs/AppDetails';
 
 const BASE_URL = 'https://api.steampowered.com';
 const STORE_URL = 'https://store.steampowered.com/api';
@@ -46,8 +47,6 @@ export class Fetcher {
     if (!noKey) params.key = this.token;
 
     const req_URL = `${baseUrl}${path}${this.stringifyGetParams(params)}`;
-
-    console.log(req_URL);
 
     const result = await axios.get(req_URL);
     return result.data;
@@ -232,6 +231,18 @@ export class Fetcher {
     )) as AppListResponse;
 
     return response.applist.apps;
+  }
+
+  async getAppDetails(appids: number, region: string = 'us') {
+    const response = ((await this.get(
+      '/appdetails',
+      { appids, cc: region },
+      { baseUrl: this.storeUrl, noKey: true }
+    )) as any)[appids];
+
+    if (response.success) {
+      return response.data as AppDetails;
+    } else return undefined;
   }
 
   async getNumberOfCurrentPlayers(appid: number) {
