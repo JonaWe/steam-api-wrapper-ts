@@ -17,6 +17,7 @@ import PlayerStatsForGameResponse from './Structs/Responses/PlayerStatsForGameRe
 import AppDetails from './Structs/AppDetails';
 import { AppId } from './Types';
 import AppNewsResponse from './Structs/Responses/AppNewsResponse';
+import AppAchievementPercentageResponse from './Structs/Responses/AppAchievementPercentageResponse';
 
 const BASE_URL = 'https://api.steampowered.com';
 const STORE_URL = 'https://store.steampowered.com/api';
@@ -254,6 +255,16 @@ export class Fetcher {
       { noKey: true }
     )) as AppNewsResponse;
     return response.appnews.newsitems;
+  }
+
+  async getAppAchievementPercentage(appid: number) {
+    const response = (await this.get(
+      '/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v2',
+      { gameid: appid },
+      { noKey: true }
+    )) as AppAchievementPercentageResponse;
+
+    return response.achievementpercentages.achievements;
   }
 
   async getNumberOfCurrentPlayers(appid: number) {
