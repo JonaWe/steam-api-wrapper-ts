@@ -15,6 +15,8 @@ import SchemaForGameResponse from './Structs/Responses/SchemaForGameResponse';
 import PlayerBadgesResponse from './Structs/Responses/PlayerBadgesResponse';
 import PlayerStatsForGameResponse from './Structs/Responses/PlayerStatsForGameResponse';
 import AppDetails from './Structs/AppDetails';
+import { AppId } from './Types';
+import AppNewsResponse from './Structs/Responses/AppNewsResponse';
 
 const BASE_URL = 'https://api.steampowered.com';
 const STORE_URL = 'https://store.steampowered.com/api';
@@ -243,6 +245,15 @@ export class Fetcher {
     if (response.success) {
       return response.data as AppDetails;
     } else return undefined;
+  }
+
+  async getAppNews(appid: AppId) {
+    const response = (await this.get(
+      '/ISteamNews/GetNewsForApp/v2',
+      { appid },
+      { noKey: true }
+    )) as AppNewsResponse;
+    return response.appnews.newsitems;
   }
 
   async getNumberOfCurrentPlayers(appid: number) {
