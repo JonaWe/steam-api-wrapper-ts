@@ -1,5 +1,3 @@
-import { AppId } from '../Types';
-
 export default interface AppDetails {
   type: 'game' | 'dlc' | 'demo' | 'music';
   name: string;
@@ -7,7 +5,7 @@ export default interface AppDetails {
   required_age: string;
   is_free: boolean;
   controller_support?: string;
-  dlc?: AppId[];
+  dlc?: number[];
   detailed_description: string;
   about_the_game: string;
   short_description: string;

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Region } from './Types';
 import PlayerFriendListResponse from './Structs/Responses/PlayerFriendListResponse';
 import PlayerLevelResponse from './Structs/Responses/PlayerLevelResponse';
 import PlayerOwnedGamesResponse from './Structs/Responses/PlayerOwnedGamesResponse';
@@ -15,7 +16,6 @@ import SchemaForGameResponse from './Structs/Responses/SchemaForGameResponse';
 import PlayerBadgesResponse from './Structs/Responses/PlayerBadgesResponse';
 import PlayerStatsForGameResponse from './Structs/Responses/PlayerStatsForGameResponse';
 import AppDetails from './Structs/AppDetails';
-import { AppId, Region } from './Types';
 import AppNewsResponse from './Structs/Responses/AppNewsResponse';
 import AppAchievementPercentageResponse from './Structs/Responses/AppAchievementPercentageResponse';
 
@@ -249,7 +249,7 @@ export class Fetcher {
       return Promise.reject(new TypeError('The provided AppId is invalid!'));
   }
 
-  async getAppNews(appid: AppId) {
+  async getAppNews(appid: number) {
     const response = (await this.get(
       '/ISteamNews/GetNewsForApp/v2',
       { appid },
