@@ -16,21 +16,38 @@ import PlayerBadgesResponse from './Structs/Responses/PlayerBadgesResponse';
 import PlayerStatsForGameResponse from './Structs/Responses/PlayerStatsForGameResponse';
 
 const BASE_URL = 'https://api.steampowered.com';
+const STORE_URL = 'https://store.steampowered.com/api';
 
+interface GetOptions {
+  baseUrl?: string;
+  noKey?: boolean;
+}
 export class Fetcher {
   token: string;
   baseUrl: string;
+  storeUrl: string;
 
-  constructor(token: string, baseUrl: string = BASE_URL) {
+  constructor(
+    token: string,
+    baseUrl: string = BASE_URL,
+    storeUrl: string = STORE_URL
+  ) {
     this.token = token;
     this.baseUrl = baseUrl;
+    this.storeUrl = storeUrl;
   }
 
-  async get(path: string, params: any = {}) {
-    // adds the key to the provided parameters
-    params.key = this.token;
+  async get(
+    path: string,
+    params: any = {},
+    { baseUrl = this.baseUrl, noKey = false }: GetOptions = {}
+  ) {
+    // adds the key to the provided parameters if not specified different
+    if (!noKey) params.key = this.token;
 
-    const req_URL = `${this.baseUrl}${path}${this.stringifyGetParams(params)}`;
+    const req_URL = `${baseUrl}${path}${this.stringifyGetParams(params)}`;
+
+    console.log(req_URL);
 
     const result = await axios.get(req_URL);
     return result.data;
@@ -209,7 +226,9 @@ export class Fetcher {
 
   async getAppList() {
     const response = (await this.get(
-      '/ISteamApps/GetAppList/v2'
+      '/ISteamApps/GetAppList/v2',
+      {},
+      { noKey: true }
     )) as AppListResponse;
 
     return response.applist.apps;
@@ -219,7 +238,8 @@ export class Fetcher {
     // TODO throws error when appid is not available
     const response = (await this.get(
       '/ISteamUserStats/GetNumberOfCurrentPlayers/v1',
-      { appid }
+      { appid },
+      { noKey: true }
     )) as NumberOfCurrentPlayersResponse;
 
     return response.response.result === 1
