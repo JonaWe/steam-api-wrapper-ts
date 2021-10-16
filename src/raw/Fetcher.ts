@@ -226,6 +226,10 @@ export class Fetcher {
     };
   }
 
+  /**
+   * Get a list with all available appids and their corresponding names.
+   * @returns List with all appids and their names
+   */
   async getAppList() {
     const response = (await this.get(
       '/ISteamApps/GetAppList/v2',
@@ -236,6 +240,12 @@ export class Fetcher {
     return response.applist.apps;
   }
 
+  /**
+   * Get numerous details about an appid.
+   * @param appids App ID
+   * @param region Region to determin language for textoutput
+   * @returns Numerous details about the app
+   */
   async getAppDetails(appids: number, region: Region = 'us') {
     const response = ((await this.get(
       '/appdetails',
@@ -249,6 +259,11 @@ export class Fetcher {
       return Promise.reject(new TypeError('The provided AppId is invalid!'));
   }
 
+  /**
+   * Get the list with news items for an appid.
+   * @param appid App ID
+   * @returns List with news items for the provided appid
+   */
   async getAppNews(appid: number) {
     const response = (await this.get(
       '/ISteamNews/GetNewsForApp/v2',
@@ -258,6 +273,12 @@ export class Fetcher {
     return response.appnews.newsitems;
   }
 
+  /**
+   * Get a list with all achievements for an appid and the corresponding
+   * global completion rate.
+   * @param appid App ID
+   * @returns List with achievements and the global completion rate
+   */
   async getAppAchievementPercentage(appid: number) {
     const response = (await this.get(
       '/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v2',
@@ -268,6 +289,11 @@ export class Fetcher {
     return response.achievementpercentages.achievements;
   }
 
+  /**
+   * Get the total number of current players for an appid.
+   * @param appid App ID
+   * @returns Number of current players
+   */
   async getNumberOfCurrentPlayers(appid: number) {
     // TODO throws error when appid is not available
     const response = (await this.get(
