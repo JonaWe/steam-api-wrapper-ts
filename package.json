@@ -16,7 +16,8 @@
     "test": "tsdx test",
     "lint": "tsdx lint",
     "prepare": "tsdx build",
-    "playground": "nodemon playground"
+    "playground": "nodemon playground",
+    "updateGameAdapter": "node gameAdapterScript/updateGameAdapter"
   },
   "husky": {
     "hooks": {
@@ -33,6 +34,7 @@
   "author": "Jona Wessendorf",
   "module": "dist/steam-api.esm.js",
   "devDependencies": {
+    "dotenv": "^10.0.0",
     "husky": "^7.0.2",
     "nodemon": "^2.0.13",
     "tsdx": "^0.14.1",
