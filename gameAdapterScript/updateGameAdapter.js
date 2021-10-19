@@ -51,7 +51,7 @@ async function getStatsForApp(appid, appName) {
   });
   content += `}\n\n`;
 
-  content += `interface ${appName}Achievements {`;
+  content += `interface ${appName}Achievements {\n`;
   schema.achievements.forEach(
     ({ name, defaultvalue, displayName, hidden, description }, i) => {
       name = safeName(name);

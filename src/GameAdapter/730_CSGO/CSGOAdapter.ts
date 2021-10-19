@@ -1723,7 +1723,8 @@ interface CSGOStats {
   steam_stat_survivedz: number;
 }
 
-interface CSGOAchievements {  /**
+interface CSGOAchievements {
+  /**
    * ### Someone Set Up Us The Bomb
    * Win a round by planting a bomb
    * - default value: `false`

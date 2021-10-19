@@ -13,7 +13,8 @@ interface PortalStats {
   PORTAL_TRANSMISSION_RECEIVED_STAT: number;
 }
 
-interface PortalAchievements {  /**
+interface PortalAchievements {
+  /**
    * ### Lab Rat
    * Acquire the fully powered Aperture Science Handheld Portal Device.
    * - default value: `false`

@@ -691,7 +691,8 @@ interface RustStats {
   gesture_wave_count: number;
 }
 
-interface RustAchievements {  /**
+interface RustAchievements {
+  /**
    * ### Place Camp Fire
    * Place a camp fire
    * - default value: `false`

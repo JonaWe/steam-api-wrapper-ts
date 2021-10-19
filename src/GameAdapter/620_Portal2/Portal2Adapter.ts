@@ -715,7 +715,8 @@ interface Portal2Stats {
   PS3_CFG_usrSS_sixense_aim_freeaim_pitch_offset: number;
 }
 
-interface Portal2Achievements {  /**
+interface Portal2Achievements {
+  /**
    * ### Wake Up Call
    * Survive the manual override
    * - default value: `false`

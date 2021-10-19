@@ -4555,7 +4555,8 @@ interface TF2Stats {
   GCStat_MannUp_Victories: number;
 }
 
-interface TF2Achievements {  /**
+interface TF2Achievements {
+  /**
    * ### Head of the Class
    * Play a complete round with every class.
    * - default value: `false`
