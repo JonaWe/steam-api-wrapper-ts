@@ -23,6 +23,10 @@
     {
       "name": "PUBG",
       "appid": 578080
+    },
+    {
+      "name": "GTAV",
+      "appid": 271590
     }
   ]
 }
