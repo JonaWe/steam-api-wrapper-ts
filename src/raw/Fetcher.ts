@@ -27,10 +27,6 @@ interface GetOptions {
   noKey?: boolean;
 }
 export class Fetcher {
-  token: string;
-  baseUrl: string;
-  storeUrl: string;
-
   constructor(
     private token: string,
     private baseUrl: string = BASE_URL,
@@ -68,7 +64,7 @@ export class Fetcher {
     return result;
   }
 
-  async resolveVanityURL(vanityurl: string, url_type: number = 1) {
+  public async resolveVanityURL(vanityurl: string, url_type: number = 1) {
     // url_type: 1 individual profile; 2 group; 3 official game group
     const response = (await this.get('/ISteamUser/ResolveVanityURL/v0001', {
       vanityurl,
@@ -77,7 +73,7 @@ export class Fetcher {
     return response.response.success === 1 ? response.response.steamid! : null;
   }
 
-  async getPlayerSummaries(steam64ids: string | string[]) {
+  public async getPlayerSummaries(steam64ids: string | string[]) {
     if (typeof steam64ids === 'string') {
       steam64ids = [steam64ids];
     }
@@ -98,7 +94,7 @@ export class Fetcher {
     }, []);
   }
 
-  async getPlayerOwnedGames(
+  public async getPlayerOwnedGames(
     steamid: string,
     includeAppInfo = false,
     includePlayedFreeGames = true
@@ -115,7 +111,7 @@ export class Fetcher {
     };
   }
 
-  async getPlayerRecentGames(
+  public async getPlayerRecentGames(
     steamid: string,
     includeAppInfo = false,
     includePlayedFreeGames = false
@@ -132,14 +128,14 @@ export class Fetcher {
     return response.response;
   }
 
-  async getPlayerSteamLevel(steamid: string) {
+  public async getPlayerSteamLevel(steamid: string) {
     const response = (await this.get('/IPlayerService/GetSteamLevel/v1', {
       steamid,
     })) as PlayerLevelResponse;
     return response.response.player_level;
   }
 
-  async getPlayerFriendList(steamid: string) {
+  public async getPlayerFriendList(steamid: string) {
     // TODO handling private friend lists
     const response = (await this.get('/ISteamUser/GetFriendList/v1', {
       steamid,
@@ -147,7 +143,7 @@ export class Fetcher {
     return response.friendslist.friends;
   }
 
-  async getPlayerBan(steamid: string | string[]) {
+  public async getPlayerBan(steamid: string | string[]) {
     if (typeof steamid === 'string') {
       steamid = [steamid];
     }
@@ -168,7 +164,7 @@ export class Fetcher {
     }, []);
   }
 
-  async getPlayerGroupList(steamid: string) {
+  public async getPlayerGroupList(steamid: string) {
     const response = (await this.get('/ISteamUser/GetUserGroupList/v1', {
       steamid,
     })) as PlayerGroupListResponse;
@@ -176,7 +172,7 @@ export class Fetcher {
     return response.response.success ? response.response.groups : [];
   }
 
-  async getPlayerAchievements(steamid: string, appid: number) {
+  public async getPlayerAchievements(steamid: string, appid: number) {
     const response = (await this.get(
       '/ISteamUserStats/GetPlayerAchievements/v1',
       {
@@ -190,14 +186,14 @@ export class Fetcher {
       : null;
   }
 
-  async getPlayerBadges(steamid: string) {
+  public async getPlayerBadges(steamid: string) {
     const response = (await this.get('/IPlayerService/GetBadges/v1', {
       steamid,
     })) as PlayerBadgesResponse;
     return response.response;
   }
 
-  async getPlayerStatsForGame(steamid: string, appid: number) {
+  public async getPlayerStatsForGame(steamid: string, appid: number) {
     const response = (await this.get(
       '/ISteamUserStats/GetUserStatsForGame/v2',
       {
@@ -209,7 +205,7 @@ export class Fetcher {
     return response.playerstats;
   }
 
-  async getSchemaForGame(appid: number) {
+  public async getSchemaForGame(appid: number) {
     // TODO add language option
     const response = (await this.get('/ISteamUserStats/GetSchemaForGame/v2', {
       appid,
@@ -226,7 +222,7 @@ export class Fetcher {
    * Get a list with all available appids and their corresponding names.
    * @returns List with all appids and their names
    */
-  async getAppList() {
+  public async getAppList() {
     const response = (await this.get(
       '/ISteamApps/GetAppList/v2',
       {},
@@ -242,7 +238,7 @@ export class Fetcher {
    * @param region Region to determin language for textoutput
    * @returns Numerous details about the app
    */
-  async getAppDetails(appids: number, region: Region = 'us') {
+  public async getAppDetails(appids: number, region: Region = 'us') {
     const response = ((await this.get(
       '/appdetails',
       { appids, cc: region },
@@ -260,7 +256,7 @@ export class Fetcher {
    * @param appid App ID
    * @returns List with news items for the provided appid
    */
-  async getAppNews(appid: number) {
+  public async getAppNews(appid: number) {
     const response = (await this.get(
       '/ISteamNews/GetNewsForApp/v2',
       { appid },
@@ -275,7 +271,7 @@ export class Fetcher {
    * @param appid App ID
    * @returns List with achievements and the global completion rate
    */
-  async getAppAchievementPercentage(appid: number) {
+  public async getAppAchievementPercentage(appid: number) {
     const response = (await this.get(
       '/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v2',
       { gameid: appid },
@@ -290,7 +286,7 @@ export class Fetcher {
    * @param appid App ID
    * @returns Number of current players
    */
-  async getNumberOfCurrentPlayers(appid: number) {
+  public async getNumberOfCurrentPlayers(appid: number) {
     // TODO throws error when appid is not available
     const response = (await this.get(
       '/ISteamUserStats/GetNumberOfCurrentPlayers/v1',
