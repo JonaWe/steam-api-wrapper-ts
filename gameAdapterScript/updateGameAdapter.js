@@ -40,32 +40,32 @@ async function getStatsForApp(appid, appName) {
     `}\n\n`;
 
   content += `interface ${appName}Stats {\n`;
-  schema.stats.forEach(({ name, defaultValue, displayName }) => {
+  schema.stats.forEach(({ name, defaultValue, displayName }, i) => {
     name = safeName(name);
     content +=
-      `  /**\n` +
+      `${i !== 0 ? '\n' : ''}  /**\n` +
       `   * ### ${displayName || name}\n` +
       `   * - default value: \`${defaultValue || 0}\`\n` +
       `   */\n` +
-      `  ${name}: number;\n\n`;
+      `  ${name}: number;\n`;
   });
   content += `}\n\n`;
 
   content += `interface ${appName}Achievements {`;
   schema.achievements.forEach(
-    ({ name, defaultvalue, displayName, hidden, description }) => {
+    ({ name, defaultvalue, displayName, hidden, description }, i) => {
       name = safeName(name);
       content +=
-        `  /**\n` +
+        `${i !== 0 ? '\n' : ''}  /**\n` +
         `   * ### ${displayName || name}\n` +
         `   * ${description || ''}\n` +
         `   * - default value: \`${defaultvalue !== 0}\`\n` +
         `   * - hidden: \`${hidden !== 0}\`\n` +
         `   */\n` +
-        `  ${name}: boolean;\n\n`;
+        `  ${name}: boolean;\n`;
     }
   );
-  content += `}`;
+  content += `}\n`;
 
   return content;
 }
