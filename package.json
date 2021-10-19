@@ -14,7 +14,7 @@
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test",
-    "lint": "tsdx lint",
+    "lint": "tsdx lint --ignore-pattern GameAdapter",
     "prepare": "tsdx build",
     "playground": "nodemon playground",
     "updateGameAdapter": "node gameAdapterScript/updateGameAdapter"
