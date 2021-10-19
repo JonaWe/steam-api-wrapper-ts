@@ -1,6 +1,10 @@
 {
   "games": [
     {
+      "name": "CSS",
+      "appid": 240
+    },
+    {
       "name": "CSGO",
       "appid": 730
     },

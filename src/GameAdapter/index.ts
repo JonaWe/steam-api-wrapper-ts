@@ -1,3 +1,4 @@
+export { CSSAdapter } from './240_CSS/CSSAdapter';
 export { CSGOAdapter } from './730_CSGO/CSGOAdapter';
 export { TF2Adapter } from './440_TF2/TF2Adapter';
 export { PortalAdapter } from './400_Portal/PortalAdapter';
