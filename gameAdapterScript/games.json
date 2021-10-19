@@ -35,6 +35,10 @@
     {
       "name": "Warframe",
       "appid": 230410
+    },
+    {
+      "name": "GarrysMod",
+      "appid": 4000
     }
   ]
 }
