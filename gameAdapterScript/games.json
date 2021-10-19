@@ -9,6 +9,14 @@
       "appid": 440
     },
     {
+      "name": "Portal",
+      "appid": 400
+    },
+    {
+      "name": "Portal2",
+      "appid": 620
+    },
+    {
       "name": "Rust",
       "appid": 252490
     }
