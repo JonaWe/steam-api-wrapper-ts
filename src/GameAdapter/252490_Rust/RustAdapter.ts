@@ -718,7 +718,6 @@ interface RustAchievements {
 
   /**
    * ### Craft Stone Hatchet
-   * 
    * - default value: `false`
    * - hidden: `false`
    */
@@ -726,7 +725,6 @@ interface RustAchievements {
 
   /**
    * ### Collect 200 Stone
-   * 
    * - default value: `false`
    * - hidden: `false`
    */
@@ -734,7 +732,6 @@ interface RustAchievements {
 
   /**
    * ### Craft Stone Pickaxe
-   * 
    * - default value: `false`
    * - hidden: `false`
    */
@@ -1078,7 +1075,6 @@ interface RustAchievements {
 
   /**
    * ### Glutton
-   * 
    * - default value: `false`
    * - hidden: `true`
    */
@@ -1086,7 +1082,6 @@ interface RustAchievements {
 
   /**
    * ### Sealbreaker
-   * 
    * - default value: `false`
    * - hidden: `true`
    */
@@ -1094,7 +1089,6 @@ interface RustAchievements {
 
   /**
    * ### Save The Planet
-   * 
    * - default value: `false`
    * - hidden: `true`
    */
@@ -1102,7 +1096,6 @@ interface RustAchievements {
 
   /**
    * ### I'm the Captain now
-   * 
    * - default value: `false`
    * - hidden: `true`
    */
@@ -1110,7 +1103,6 @@ interface RustAchievements {
 
   /**
    * ### On The Deck
-   * 
    * - default value: `false`
    * - hidden: `true`
    */
@@ -1118,7 +1110,6 @@ interface RustAchievements {
 
   /**
    * ### Giddy Up!
-   * 
    * - default value: `false`
    * - hidden: `true`
    */
@@ -1126,7 +1117,6 @@ interface RustAchievements {
 
   /**
    * ### Something of a scientist myself
-   * 
    * - default value: `false`
    * - hidden: `true`
    */
@@ -1150,7 +1140,6 @@ interface RustAchievements {
 
   /**
    * ### Getting the band together
-   * 
    * - default value: `false`
    * - hidden: `true`
    */
@@ -1174,7 +1163,6 @@ interface RustAchievements {
 
   /**
    * ### Sunglasses at Night
-   * 
    * - default value: `false`
    * - hidden: `true`
    */

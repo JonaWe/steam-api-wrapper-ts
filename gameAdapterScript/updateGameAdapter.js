@@ -58,7 +58,7 @@ async function getStatsForApp(appid, appName) {
       content +=
         `${i !== 0 ? '\n' : ''}  /**\n` +
         `   * ### ${displayName || name}\n` +
-        `   * ${description || ''}\n` +
+        (description ? `   * ${description}\n` : '') +
         `   * - default value: \`${defaultvalue !== 0}\`\n` +
         `   * - hidden: \`${hidden !== 0}\`\n` +
         `   */\n` +
