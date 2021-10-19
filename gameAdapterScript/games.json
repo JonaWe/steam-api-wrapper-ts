@@ -3,6 +3,10 @@
     {
       "name": "CSGO",
       "appid": 730
+    },
+    {
+      "name": "Rust",
+      "appid": 252490
     }
   ]
 }
