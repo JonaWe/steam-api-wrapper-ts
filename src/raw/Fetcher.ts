@@ -32,14 +32,10 @@ export class Fetcher {
   storeUrl: string;
 
   constructor(
-    token: string,
-    baseUrl: string = BASE_URL,
-    storeUrl: string = STORE_URL
-  ) {
-    this.token = token;
-    this.baseUrl = baseUrl;
-    this.storeUrl = storeUrl;
-  }
+    private token: string,
+    private baseUrl: string = BASE_URL,
+    private storeUrl: string = STORE_URL
+  ) {}
 
   async get(
     path: string,
