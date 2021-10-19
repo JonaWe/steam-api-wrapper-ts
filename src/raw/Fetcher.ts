@@ -18,6 +18,7 @@ import PlayerStatsForGameResponse from './Structs/Responses/PlayerStatsForGameRe
 import AppDetails from './Structs/AppDetails';
 import AppNewsResponse from './Structs/Responses/AppNewsResponse';
 import AppAchievementPercentageResponse from './Structs/Responses/AppAchievementPercentageResponse';
+import GameAdapter from '../GameAdapter/GameAdapter';
 
 const BASE_URL = 'https://api.steampowered.com';
 const STORE_URL = 'https://store.steampowered.com/api';
@@ -202,7 +203,18 @@ export class Fetcher {
       }
     )) as PlayerStatsForGameResponse;
 
-    return response.playerstats;
+    const stats: any = {};
+    const achievements: any = {};
+    const safeNameRegex = /[^a-z0-9]|^[0-9]/gi;
+
+    response.playerstats.stats.forEach(({ name, value }) => {
+      stats[name.replace(safeNameRegex, '_')] = value;
+    });
+    response.playerstats.achievements.forEach(({ name, achieved }) => {
+      achievements[name.replace(safeNameRegex, '_')] = achieved === 1;
+    });
+
+    return { stats, achievements } as GameAdapter;
   }
 
   public async getSchemaForGame(appid: number) {
