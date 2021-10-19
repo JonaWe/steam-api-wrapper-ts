@@ -6,3 +6,4 @@ export { RustAdapter } from './252490_Rust/RustAdapter';
 export { PUBGAdapter } from './578080_PUBG/PUBGAdapter';
 export { GTAVAdapter } from './271590_GTAV/GTAVAdapter';
 export { RocketLeagueAdapter } from './252950_RocketLeague/RocketLeagueAdapter';
+export { WarframeAdapter } from './230410_Warframe/WarframeAdapter';

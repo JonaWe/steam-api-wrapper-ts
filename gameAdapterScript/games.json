@@ -31,6 +31,10 @@
     {
       "name": "RocketLeague",
       "appid": 252950
+    },
+    {
+      "name": "Warframe",
+      "appid": 230410
     }
   ]
 }
