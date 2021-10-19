@@ -27,6 +27,10 @@
     {
       "name": "GTAV",
       "appid": 271590
+    },
+    {
+      "name": "RocketLeague",
+      "appid": 252950
     }
   ]
 }
