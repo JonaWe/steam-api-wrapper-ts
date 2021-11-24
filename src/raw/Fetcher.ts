@@ -82,7 +82,7 @@ export class Fetcher {
     const chunkedSteamIds = this.chunkArray(steam64ids, 100);
 
     const promises = chunkedSteamIds.map(
-      list =>
+      (list) =>
         this.get('/ISteamUser/GetPlayerSummaries/v0002', {
           steamids: list.join(','),
         }) as Promise<PlayerSummaryResponse>
@@ -152,7 +152,7 @@ export class Fetcher {
     const chunkedSteamIds = this.chunkArray(steamid, 100);
 
     const promises = chunkedSteamIds.map(
-      list =>
+      (list) =>
         this.get('/ISteamUser/GetPlayerBans/v1', {
           steamids: list.join(','),
         }) as Promise<PlayerBanResponse>
@@ -251,11 +251,13 @@ export class Fetcher {
    * @returns Numerous details about the app
    */
   public async getAppDetails(appids: number, region: Region = 'us') {
-    const response = ((await this.get(
-      '/appdetails',
-      { appids, cc: region },
-      { baseUrl: this.storeUrl, noKey: true }
-    )) as any)[appids];
+    const response = (
+      (await this.get(
+        '/appdetails',
+        { appids, cc: region },
+        { baseUrl: this.storeUrl, noKey: true }
+      )) as any
+    )[appids];
 
     if (response.success) {
       return response.data as AppDetails;
