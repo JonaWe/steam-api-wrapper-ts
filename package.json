@@ -30,7 +30,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "steam-api",
+  "name": "@jonawe/steamapi",
   "author": "Jona Wessendorf",
   "module": "dist/steam-api.esm.js",
   "devDependencies": {
